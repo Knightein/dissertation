@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+</head>
+<body>
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="my-5 container">
+        <h1 class="text-center text-xl-center font-weight-bold">
+            Learn programming easily and quickly!
+        </h1>
+
+        <p class="w-75 mx-auto text-lg-center">
+            This dissertation allows you to learn how to program in a series of
+            fun, interactive lessons which are automatically marked by an artificial
+            intelligence system. This system will provide you with feedback on your
+            code and help you to improve your programming skills.
+        </p>
+
+        {% if not current_user.is_authenticated %}
+            <div class="d-flex justify-content-center mt-4">
+                <a href="{{ url_for('users.login') }}" class="btn btn-primary btn-lg mr-3">Login</a>
+                <a href="{{ url_for('users.register') }}" class="btn btn-primary btn-lg">Register</a>
+            </div>
+        {% endif %}
+
+        <h1 class="text-center text-xl-center font-weight-bold">
+            Marking Just Got Easier.
+        </h1>
+
+        <p class="w-75 mx-auto text-lg-center">
+            The marking system allows the LLM to provide you with feedback on your code
+            in a matter of seconds. This allows you to learn from your mistakes and improve
+            your programming skills quickly and easily. If the AI system is unable to understand
+            your code, your teacher will be able to overwrite the AI's feedback and provide you
+            with feedback on your code, so don't worry if the AI doesn't understand your code!
+        </p>
+
+        <div class="d-flex justify-content-center m-4">
+            <img src="/static/img/gemini_logo.svg" alt="gemini logo">
+        </div>
+
+        <h1 class="text-center text-xl-center font-weight-bold">
+            The power of Artificial Intelligence!
+        </h1>
+
+        <p class="w-75 mx-auto text-lg-center">
+            Powered by Google's Gemini AI, this system is able to understand your code
+            and provide you with feedback on how to improve it. This system is able to
+            understand a wide range of programming languages and can provide feedback
+            on a wide range of programming concepts.
+        </p>
+    </div>
+{% endblock %}
+</body>
+</html>

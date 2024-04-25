@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Start Assignment</title>
+</head>
+<body>
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="box">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="alert alert-success">
+                    {{ messages[0] }}
+                </div>
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <form action="{{ url_for('ai.submit_assignment') }}" method="POST">
+        <div>
+            <label for="Description" class="block pt-4 font-bold text-xl flex justify-center mx-auto text-gray-800">
+                Code Submission for {{ assignment.name }}
+            </label>
+            <div class="flex justify-center">
+            <textarea placeholder="Paste code here!" name="code"
+                      class="block mt-2 w-3/4 placeholder-gray-400/70 rounded-lg border border-gray-200 bg-white px-4 h-32 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40"></textarea>
+            </div>
+
+            <p class="mt-3 text-xs text-gray-400 dark:text-gray-600 flex justify-center mx-auto">
+                Please paste the code inside to submit it.
+            </p>
+
+            <input type="hidden" name="assignment_id" value="{{ assignment.assignment_id }}">
+            <div class="flex justify-center mx-auto mt-4">
+                <button type="submit"
+                        class="px-4 py-2 text-sm font-bold text-gray-100 bg-indigo-600 hover:text-gray-100 rounded"
+                        tabindex="0" role="button">
+                    Submit Code
+                </button>
+            </div>
+        </div>
+    </form>
+
+{% endblock %}
+</body>
+</html>

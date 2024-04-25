@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Assignment</title>
+</head>
+<body>
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="w-full max-w-2xl mx-auto mt-5 overflow-hidden bg-white rounded-lg shadow-lg">
+        <div class="px-6 py-4">
+
+            <h3 class="mt-3 text-xl font-medium text-center text-gray-800">Welcome {{ name }}.</h3>
+
+            <p class="mt-1 text-center text-gray-900">Create Assignment</p>
+
+            <div class="box">
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        <div class="alert alert-danger">
+                            {{ messages[0] }}
+                        </div>
+                    {% endif %}
+                {% endwith %}
+            </div>
+
+            <form method="POST">
+                {{ form.csrf_token() }}
+                <div>
+                    {{ form.assignment_name(class="input", class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-lg focus:border-blue-400 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300 form-group",
+                    placeholder="Assignment Name") }}
+                    {% for error in form.assignment_name.errors %}
+                        <p class="text-red-500">{{ error }}</p>
+                    {% endfor %}
+                </div>
+
+                <div>
+                    {{ form.description(class="input", class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-lg focus:border-blue-400 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300 form-group",
+                    placeholder="Description") }}
+                    {% for error in form.description.errors %}
+                        <p class="text-red-500">{{ error }}</p>
+                    {% endfor %}
+                </div>
+
+                <div>
+                    {{ form.due_date(class="input", class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-lg focus:border-blue-400 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300 form-group",
+                    placeholder="Due Date") }}
+                    {% for error in form.due_date.errors %}
+                        <p class="text-red-500">{{ error }}</p>
+                    {% endfor %}
+                </div>
+
+                <div class="flex items-center justify-between mt-4">
+                    <span class="text-sm text-gray-800 hover:text-gray-500">
+
+                    </span>
+
+                    <div>
+                        {{ form.submit(class="px-6 py-2 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50") }}
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="flex items-center justify-center py-4 text-center bg-gray-50 dark:bg-gray-700"></div>
+
+    </div>
+
+{% endblock %}
+</body>
+</html>

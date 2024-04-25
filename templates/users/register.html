@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+</head>
+<body>
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="w-full max-w-sm mx-auto mt-5 overflow-hidden bg-white rounded-lg shadow-lg">
+        <div class="px-6 py-4">
+            <div class="flex justify-center mx-auto">
+                <img class="w-auto h-7 sm:h-8" src="/static/img/logo.png" alt="">
+            </div>
+
+            <h3 class="mt-3 text-xl font-medium text-center text-gray-800">Welcome</h3>
+
+            <p class="mt-1 text-center text-gray-900">Create account</p>
+
+            <div class="box">
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        <div class="alert alert-danger">
+                            {{ messages[0] }}. Go to <a href="{{ url_for('users.login') }}">Login Page.</a>
+                        </div>
+                    {% endif %}
+                {% endwith %}
+            </div>
+
+            <form method="POST">
+                {{ form.csrf_token() }}
+                <div>
+                    {{ form.email(class="input", class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-lg focus:border-blue-400 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300 form-group",
+                    placeholder="Email Address")}}
+                    {% for error in form.email.errors %}
+                        <p class="text-red-500">{{ error }}</p>
+                    {% endfor %}
+                </div>
+
+                <div>
+                    {{ form.firstname(class="input", class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-lg focus:border-blue-400 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300 form-group",
+                    placeholder="First Name")}}
+                    {% for error in form.firstname.errors %}
+                        <p class="text-red-500">{{ error }}</p>
+                    {% endfor %}
+                </div>
+
+                <div>
+                    {{ form.lastname(class="input", class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-lg focus:border-blue-400 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300 form-group",
+                    placeholder="Last Name")}}
+                    {% for error in form.lastname.errors %}
+                        <p class="text-red-500">{{ error }}</p>
+                    {% endfor %}
+                </div>
+
+                <div>
+                    {{ form.password(class="input", class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-lg focus:border-blue-400 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300 form-group",
+                    placeholder="Password")}}
+                    {% for error in form.password.errors %}
+                        <p class="text-red-500">{{ error }}</p>
+                    {% endfor %}
+                </div>
+
+                <div>
+                    {{ form.confirm_password(class="input", class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-lg focus:border-blue-400 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300 form-group",
+                    placeholder="Confirm Password")}}
+                    {% for error in form.confirm_password.errors %}
+                        <p class="text-red-500">{{ error }}</p>
+                    {% endfor %}
+                </div>
+
+                <div class="flex items-center justify-between mt-4">
+                    <span class="text-sm text-gray-800 hover:text-gray-500">
+
+                    </span>
+
+                    <div>
+                        {{ form.submit(class="px-6 py-2 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50") }}
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="flex items-center justify-center py-4 text-center bg-gray-50 dark:bg-gray-700"></div>
+
+    </div>
+
+{% endblock %}
+</body>
+</html>

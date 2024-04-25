@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Assignments</title>
+</head>
+<body>
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="w-full max-w-xl mx-auto mt-5">
+        {% if assignments %}
+            {% for assignment in assignments %}
+                <div class="max-w-2xl px-8 py-4 my-4 bg-white rounded-lg shadow-lg">
+
+
+                    <div class="flex items-center justify-between">
+                <span class="text-sm font-light text-gray-700">
+                    Assignment Created: {{ assignment.created_on }}
+                </span>
+                        <span class="px-3 py-1 text-sm font-bold text-gray-100 bg-red-900 rounded">
+                   Due on: {{ assignment.due_date }}
+                </span>
+                    </div>
+
+                    <div class="mt-2">
+                <span class="text-xl font-bold text-gray-900" tabindex="0" role="link">
+                    {{ assignment.name }}
+                </span>
+                        <p class="mt-2 text-gray-600">
+                            {{ assignment.description }}
+                        </p>
+                    </div>
+
+                    <div class="flex items-center justify-between mt-4">
+                        <form method="POST">
+                        <input type="hidden" name="assignment_id" value="{{ assignment.assignment_id }}">
+                        <a href="{{ url_for('assignments.start_assignment', id=assignment.assignment_id) }}"
+                           class="px-4 py-2 text-sm font-bold text-gray-100 bg-indigo-600 hover:text-gray-100 rounded"
+                           tabindex="0" role="button">
+                            Start Assignment
+                        </a>
+                        </form>
+
+                        <div class="flex items-center">
+                    <span class="font-bold text-gray-700">
+                        Set by: {{ assignment.set_by }}
+                    </span>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+{% endblock %}
+</body>
+</html>

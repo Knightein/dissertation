@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Grades</title>
+</head>
+<body>
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="w-full max-w-xl mx-auto mt-5">
+        {% if grades %}
+            {% for grade in grades %}
+                {% for assignment in assignments %}
+                    {% if assignment.assignment_id == grade.assignment_id %}
+                        <div class="max-w-2xl px-8 py-4 my-4 bg-white rounded-lg shadow-lg">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xl font-bold text-gray-900" tabindex="0" role="link">
+                                    {{ assignment.name }}
+                                </span>
+
+                                <span class="text-xl font-bold text-gray-700">
+                    {% if grade.grade == "U" or grade.grade == "F" or grade.grade == "E" %}
+                        <span class="px-4 py-1 text-sm font-bold text-gray-100 bg-red-700 rounded">Grade: {{ grade.grade }}</span>
+                    {% elif grade.grade == "C" or grade.grade == "D" %}
+                        <span class="px-4 py-1 text-sm font-bold text-gray-100 bg-yellow-600 rounded">Grade: {{ grade.grade }}</span>
+                    {% else %}
+                        <span class="px-4 py-1 text-sm font-bold text-gray-100 bg-green-700 rounded">Grade: {{ grade.grade }}</span>
+                    {% endif %}
+                </span>
+                            </div>
+
+                            <div class="mt-2">
+
+                                <p class="mt-2 text-gray-600">
+                                    <b>Feedback: </b>{{ grade.feedback }}
+                                </p>
+                            </div>
+
+                            <div class="flex items-center justify-between mt-4">
+                                <form method="POST">
+                                    <input type="hidden" name="grade_id" value="{{ grade.grade_id }}">
+                                    <a href="{{ url_for('grades.view_grade', id=grade.grade_id) }}"
+                                       class="px-4 py-2 text-sm font-bold text-gray-100 bg-indigo-600 hover:text-gray-100 rounded"
+                                       tabindex="0" role="button">
+                                        View More
+                                    </a>
+                                </form>
+
+                                <div class="flex items-center">
+                                    <span class="font-bold text-gray-700">
+
+                                </span>
+                                </div>
+
+                            </div>
+                            <div class="mt-4">
+                                <span class="text-sm font-light text-gray-700">
+                                    {% if grade.grade == 'U' %}
+                                        Disclaimer: If Grade is U, this means the teacher has not graded yet.
+                                    {% else %}
+
+                                    {% endif %}
+                                </span>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+        {% endif %}
+    </div>
+
+{% endblock %}
+</body>
+</html>
