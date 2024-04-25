@@ -21,7 +21,7 @@
         </p>
 
         {% if not current_user.is_authenticated %}
-            <div class="d-flex justify-content-center mt-4">
+            <div class="d-flex justify-content-center my-4">
                 <a href="{{ url_for('users.login') }}" class="btn btn-primary btn-lg mr-3">Login</a>
                 <a href="{{ url_for('users.register') }}" class="btn btn-primary btn-lg">Register</a>
             </div>

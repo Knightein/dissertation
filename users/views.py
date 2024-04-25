@@ -44,9 +44,9 @@ def login():
 
                 # Check if user is a teacher
                 if user.role == 'teacher':
-                    return render_template('teachers/teacher.html', user=user)
+                    return redirect(url_for('index'))
                 else:
-                    return render_template('users/profile.html', user=user)
+                    return redirect(url_for('index'))
             else:
                 # Increment authentication attempts
                 session['authentication_attempts'] += 1
@@ -61,19 +61,6 @@ def login():
             return render_template('users/login.html', form=form)
 
     return render_template('users/login.html', form=form)
-
-
-@users_blueprint.route('/profile')
-@login_required
-@required_roles('student')
-def profile():
-    return render_template('users/profile.html',
-                           name=current_user.firstname,
-                           email=current_user.email,
-                           firstname=current_user.firstname,
-                           lastname=current_user.lastname,
-                           role=current_user.role,
-                           registered_on=current_user.registered_on)
 
 
 @users_blueprint.route('/reset')
