@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Grade</title>
+</head>
+<body>
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="w-full max-w-2xl mx-auto mt-5 overflow-hidden bg-white rounded-lg shadow-lg">
+        <div class="px-6 py-4">
+
+            <h3 class="mt-3 text-xl font-medium text-center text-gray-800">Grade Assignment</h3>
+
+            <div class="box">
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        <div class="alert alert-success">
+                            {{ messages[0] }}
+                        </div>
+                    {% endif %}
+                {% endwith %}
+            </div>
+
+            <form method="POST">
+                {{ form.csrf_token() }}
+                <div>
+                    {{ form.grade(class="input", value=grade.grade, class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-lg focus:border-blue-400 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300 form-group",
+                    placeholder="Grade") }}
+                    {% for error in form.grade.errors %}
+                        <p class="text-red-500">{{ error }}</p>
+                    {% endfor %}
+                </div>
+
+                <div>
+                    {{ form.feedback(class="input", class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-lg focus:border-blue-400 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300 form-group",
+                    placeholder="Feedback") }}
+                    {% for error in form.feedback.errors %}
+                        <p class="text-red-500">{{ error }}</p>
+                    {% endfor %}
+                </div>
+
+                <div>
+                    {{ form.next_steps(class="input", value=grade.next_steps, class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-lg focus:border-blue-400 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300 form-group",
+                    placeholder="Next Steps") }}
+                    {% for error in form.next_steps.errors %}
+                        <p class="text-red-500">{{ error }}</p>
+                    {% endfor %}
+                </div>
+
+
+                <div>
+                    <span class="text-xl justify-items-center font-heavy text-gray-700">
+                        Correct?
+                    </span>
+                    {{ form.correct(class="input", value=grade.correct, class="block h-6 w-6 w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-lg focus:border-blue-400 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300 form-group",
+                    placeholder="Correct?") }}
+                    {% for error in form.correct.errors %}
+                        <p class="text-red-500">{{ error }}</p>
+                    {% endfor %}
+                </div>
+
+                <div>
+                    {{ form.code_submission(class="input", value=code, class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-lg focus:border-blue-400 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300 form-group",
+                    placeholder="Student's Code") }}
+                    {% for error in form.code_submission.errors %}
+                        <p class="text-red-500">{{ error }}</p>
+                    {% endfor %}
+                </div>
+
+                <div class="flex justify-center mx-auto mt-4">
+                    <div>
+                        {{ form.submit(class="px-6 py-2 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50") }}
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}
+</body>
+</html>
