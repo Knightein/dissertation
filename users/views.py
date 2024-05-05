@@ -27,7 +27,7 @@ def login():
     if session.get('authentication_attempts') >= 3:
         flash(Markup('Too many login attempts. Please try again later.'
                      '<br> Please click <a href="/reset">Here</a> to reset!'))
-        return render_template('users/login.html')
+        return render_template('users/login.html', form=form)
 
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()

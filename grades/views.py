@@ -12,6 +12,7 @@ grades_blueprint = Blueprint('grades', __name__, template_folder='templates')
 # VIEWS
 @grades_blueprint.route('/grades')
 @login_required
+@required_roles('student')
 def grades():
     # Get all grades for the current user
     all_grades = Grade.query.filter_by(student_id=current_user.id).all()
@@ -28,12 +29,16 @@ def grades():
 
 
 @grades_blueprint.route('/view_grade/<id>', methods=['GET', 'POST'])
+@login_required
+@required_roles('student')
 def view_grade(id):
     grade = Grade.query.filter_by(grade_id=id).first_or_404()
     return render_template('grades/view_grade.html', grade=grade)
 
 
 @grades_blueprint.route('/grade_assignment', methods=['GET', 'POST'])
+@login_required
+@required_roles('teacher')
 def grade_assignment():
     # Get all grades for the current user
     all_grades = Grade.query.all()
@@ -55,6 +60,7 @@ def grade_assignment():
 
 
 @grades_blueprint.route('/start_grade/<id>', methods=['GET', 'POST'])
+@required_roles('teacher')
 def start_grade(id):
     grade = Grade.query.filter_by(grade_id=id).first_or_404()
     # First get the user id from the grade associated with the user
@@ -71,10 +77,6 @@ def start_grade(id):
                      code_submission=decrypted_code)
 
     if form.validate_on_submit():
-        # new_grade = Grade(grade=form.grade.data,
-        #                   feedback=form.feedback.data,
-        #                   next_steps=form.next_steps.data,
-        #                   correct=form.correct.data)
 
         # Modify grade
         grade.grade = form.grade.data

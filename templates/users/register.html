@@ -32,7 +32,10 @@
             <form method="POST">
                 {{ form.csrf_token() }}
                 <div>
-                    {{ form.email(class="input", class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-lg focus:border-blue-400 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300 form-group",
+                    {{ form.email(class="input", class="block w-full px-4 py-2 mt-2
+                    text-gray-700 placeholder-gray-500 bg-white border rounded-lg
+                    focus:border-blue-400 focus:ring-opacity-40 focus:outline-none
+                    focus:ring focus:ring-blue-300 form-group",
                     placeholder="Email Address")}}
                     {% for error in form.email.errors %}
                         <p class="text-red-500">{{ error }}</p>
@@ -40,7 +43,10 @@
                 </div>
 
                 <div>
-                    {{ form.firstname(class="input", class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-lg focus:border-blue-400 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300 form-group",
+                    {{ form.firstname(class="input", class="block w-full px-4 py-2 mt-2
+                    text-gray-700 placeholder-gray-500 bg-white border rounded-lg
+                    focus:border-blue-400 focus:ring-opacity-40 focus:outline-none
+                    focus:ring focus:ring-blue-300 form-group",
                     placeholder="First Name")}}
                     {% for error in form.firstname.errors %}
                         <p class="text-red-500">{{ error }}</p>

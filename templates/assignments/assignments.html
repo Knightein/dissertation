@@ -13,7 +13,6 @@
             {% for assignment in assignments %}
                 <div class="max-w-2xl px-8 py-4 my-4 bg-white rounded-lg shadow-lg">
 
-
                     <div class="flex items-center justify-between">
                 <span class="text-sm font-light text-gray-700">
                     Assignment Created: {{ assignment.created_on }}
@@ -36,7 +35,8 @@
                         <form method="POST">
                         <input type="hidden" name="assignment_id" value="{{ assignment.assignment_id }}">
                         <a href="{{ url_for('assignments.start_assignment', id=assignment.assignment_id) }}"
-                           class="px-4 py-2 text-sm font-bold text-gray-100 bg-indigo-600 hover:text-gray-100 rounded"
+                           class="px-4 py-2 text-sm font-bold text-gray-100 bg-indigo-600
+                           hover:text-gray-100 rounded"
                            tabindex="0" role="button">
                             Start Assignment
                         </a>

@@ -28,12 +28,16 @@ def assignments():
 
 
 @assignments_blueprint.route('/start_assignment/<id>', methods=['GET', 'POST'])
+@login_required
+@required_roles('student')
 def start_assignment(id):
     assignment = Assignment.query.filter_by(assignment_id=id).first_or_404()
     return render_template('assignments/start_assignment.html', assignment=assignment)
 
 
 @assignments_blueprint.route('/create_assignment', methods=['GET', 'POST'])
+@login_required
+@required_roles('teacher')
 def create_assignment():
     form = AssignmentForm()
 
