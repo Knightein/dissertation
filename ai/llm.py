@@ -16,17 +16,16 @@ def generate(challenge, code):
     vertexai.init(project="axial-glow-420413", location="europe-west2")
     model = GenerativeModel("gemini-1.0-pro-vision-001")
     responses = model.generate_content(
-        [text(challenge, code)],
+        [fine_tuned_text(challenge, code)],
         generation_config=generation_config,
         safety_settings=safety_settings,
         stream=False,
     )
-
+    print(responses.text)
     # Clean the text response removing ` and json
     clean_text = responses.text.strip()
     clean_text = clean_text.replace("```", "")
     clean_text = clean_text.replace("json", "")
-    # DEBUG: print(clean_text)
 
     # Try parsing the response as JSON
     try:
@@ -70,6 +69,30 @@ def text(challenge, code):
     return """Taking the challenge \"%s\"
 
     How well does this code solve the challenge? 
+    Replace true in assignment_correct with a boolean value. 
+    True if the code solves the challenge, false otherwise.
+
+    ```
+    %s
+    ```
+
+    Respond in this JSON format:
+    {
+        \"assignment_correct\": true,
+        \"feedback\": \"\",
+        \"next_steps\": \"\"
+    }""" % (challenge, code)
+
+
+def fine_tuned_text(challenge, code):
+    return """Taking the challenge \"%s\"
+
+    How well does this code solve the challenge?
+    Please provide detailed feedback including any errors or issues in the code,
+    and how can the code be improved to solve the challenge.
+    
+    Make sure you explain in detail the next steps to improve the code.
+    
     Replace true in assignment_correct with a boolean value. 
     True if the code solves the challenge, false otherwise.
 
